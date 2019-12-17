@@ -24,8 +24,8 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import wavUrl from "./res/tick.mp3";
-import glow from "./res/glow.png"; 
-const pomodoro = "./assets/scene.gltf"; 
+import glow from "./res/glow.png";
+const pomodoro = "./assets/scene.gltf";
 // boot config
 gsap.registerPlugin(CustomEase);
 CustomEase.create(
@@ -400,7 +400,7 @@ export default class Pomodoro extends Component {
 
     // render in the canvas component
     const canvas = this.canvas;
-    const renderer = new THREE.WebGLRenderer({ canvas });
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
     renderer.gammaOutput = true;
     renderer.gammaFactor = 2.2;
 
