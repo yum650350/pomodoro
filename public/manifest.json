@@ -1,0 +1,8 @@
+{
+  "short_name": "pomodoro",
+  "name": "pomodoro app made with reactJS + threeJS",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
