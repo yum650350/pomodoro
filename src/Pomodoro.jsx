@@ -322,23 +322,31 @@ export default class Pomodoro extends Component {
     }
   }
   modeShow(min) {
-    if (this.currentMode !== min)
-      gsap.fromTo(
-        min ? ".min" : ".sec",
-        1,
-        {
-          x: -50,
+    if (this.currentMode !== min) {
+      if (min === undefined) {
+        gsap.to([".min", ".sec"], 1, {
+          x: 50,
           opacity: 0
-        },
-        {
-          x: 0,
-          opacity: 1
-        }
-      );
-    gsap.to(!min ? ".min" : ".sec", 1, {
-      x: 50,
-      opacity: 0
-    });
+        });
+      } else {
+        gsap.fromTo(
+          min ? ".min" : ".sec",
+          1,
+          {
+            x: -50,
+            opacity: 0
+          },
+          {
+            x: 0,
+            opacity: 1
+          }
+        );
+        gsap.to(!min ? ".min" : ".sec", 1, {
+          x: 50,
+          opacity: 0
+        });
+      }
+    }
     this.currentMode = min;
   }
   stopRing() {
@@ -687,7 +695,7 @@ export default class Pomodoro extends Component {
               <Button
                 className="cbtn"
                 key={`sz`}
-                onClick={() => this.start(0, true)}
+                onClick={() => this.start(0)}
                 style={{
                   color: text
                 }}
