@@ -866,6 +866,19 @@ export default class Pomodoro extends Component {
                   }}
                   className="link"
                   target="_blank"
+                  href="https://greensock.com/"
+                >
+                  GreenSock
+                </Link>
+                <Typography className="author">
+                  {" from greensock.com"}
+                </Typography>
+                <Link
+                  style={{
+                    color: text
+                  }}
+                  className="link"
+                  target="_blank"
                   href="https://threejs.org/"
                 >
                   three.js
