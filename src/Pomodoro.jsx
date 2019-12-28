@@ -665,7 +665,7 @@ export default class Pomodoro extends Component {
           </div>
           <div className="controllers">
             <div style={{ display: "flex" }}>
-              <ButtonGroup disabled={true} fullWidth size="large" color="primary">
+              <ButtonGroup disabled={!isInit} fullWidth size="large" color="primary">
                 {btns.map((x, i) => (
                   <Button
                     className="tbtn"
