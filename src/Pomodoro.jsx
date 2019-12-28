@@ -25,6 +25,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import wavUrl from "./res/tick.mp3";
 import glow from "./res/glow.png";
+import CircularProgress from '@material-ui/core/CircularProgress';
 const pomodoro = "./assets/scene.gltf";
 // boot config
 gsap.registerPlugin(CustomEase);
@@ -119,7 +120,8 @@ export default class Pomodoro extends Component {
       themeIndex: index,
       creditShow: false,
       settingShow: false,
-      btns: default_btns
+      btns: default_btns,
+      isInit:false
     };
 
     // bind the function to component
@@ -157,7 +159,7 @@ export default class Pomodoro extends Component {
     this.init();
   }
   changeTheme(index) {
-    if (!this.isInit) return;
+    if (!this.state.isInit) return;
     if (!themes[index]) {
       index = 0;
     }
@@ -206,7 +208,7 @@ export default class Pomodoro extends Component {
       .to(".title", 0.25, { y: 0 });
   }
   start(time, isMin) {
-    if (!this.isInit) return;
+    if (!this.state.isInit) return;
     this.stopRing();
     this.stopAllSound();
     this.modeShow(isMin);
@@ -584,7 +586,7 @@ export default class Pomodoro extends Component {
         controls.update();
 
         // let the application knows it's all loaded
-        this.isInit = true;
+        this.setState({isInit:true})
       });
     }
     function resizeRendererToDisplaySize(renderer) {
@@ -617,7 +619,8 @@ export default class Pomodoro extends Component {
       text,
       background,
       settingShow,
-      btns
+      btns,
+      isInit
     } = this.state;
 
     return (
@@ -652,13 +655,17 @@ export default class Pomodoro extends Component {
           <div className="note">
             <span style={{ color: text }}>Click to stop ringing</span>
           </div>
+          {!isInit&& <div className="spinner">
+            <span style={{ color: text }}>Loading 3D Model</span>
+            <CircularProgress disableShrink style={{ color: text }}/>
+          </div>}
           <div className="mode" style={{ color: text }}>
             <div className="min"> Mode : Minute</div>
             <div className="sec"> Mode : Sec</div>
           </div>
           <div className="controllers">
             <div style={{ display: "flex" }}>
-              <ButtonGroup fullWidth size="large" color="primary">
+              <ButtonGroup disabled={true} fullWidth size="large" color="primary">
                 {btns.map((x, i) => (
                   <Button
                     className="tbtn"
@@ -693,6 +700,7 @@ export default class Pomodoro extends Component {
                 <Settings />
               </Button>
               <Button
+                disabled={!isInit}
                 className="cbtn"
                 key={`sz`}
                 onClick={() => this.start(0)}
@@ -703,6 +711,7 @@ export default class Pomodoro extends Component {
                 Zero
               </Button>
               <Button
+                disabled={!isInit}
                 onClick={() => this.changeTheme(this.state.themeIndex + 1)}
                 className="cbtn"
                 style={{
@@ -728,6 +737,7 @@ export default class Pomodoro extends Component {
                 color: text,
                 borderColor: text
               }}
+              disabled={!isInit}
               valueLabelDisplay="off"
               orientation="vertical"
               defaultValue={60}
@@ -748,6 +758,7 @@ export default class Pomodoro extends Component {
                 color: text,
                 borderColor: text
               }}
+              disabled={!isInit}
               valueLabelDisplay="off"
               orientation="vertical"
               defaultValue={60}
